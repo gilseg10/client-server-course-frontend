@@ -1,6 +1,6 @@
 // -------------- Users End Points --------------
 
-const users_route = "http://localhost:3000/users"
+const users_route = "https://client-server-backend-4a2i.onrender.com/users"
 
 const login_send = async (user_info) => {
     try {
@@ -51,7 +51,7 @@ const verify_user = async (token) => {
 // -------------- Coins End Points --------------
 
 import axios from 'axios'
-const COINS_URL = 'http://localhost:3000/coins'
+const COINS_URL = 'https://client-server-backend-4a2i.onrender.com/coins'
 
 const getAllCoinsFromServer = async () => {
     const { data } = await axios.get(COINS_URL)
@@ -65,7 +65,7 @@ const getAllCoinsFromServer = async () => {
 
 // -------------- Contacts End Points --------------
 
-const contact_route = "http://localhost:3000/contacts"
+const contact_route = "https://client-server-backend-4a2i.onrender.com/contacts"
 
 const contact_send = async (contact) => {
     try {
