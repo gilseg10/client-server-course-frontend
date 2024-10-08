@@ -51,6 +51,7 @@ const verify_user = async (token) => {
 // -------------- Coins End Points --------------
 
 import axios from 'axios'
+
 const COINS_URL = 'https://client-server-backend-4a2i.onrender.com/coins'
 
 const getAllCoinsFromServer = async () => {
@@ -76,10 +77,9 @@ const contact_send = async (contact) => {
             },
             body: JSON.stringify(contact)
         })
-        const data = await resp.json()
-        return data
+        return await resp.json()
     } catch (error) {
-        console.log(e.message)
+        console.log(error.message)
     }
 } 
 
