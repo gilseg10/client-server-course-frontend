@@ -92,7 +92,7 @@ export default function Contactus() {
                         </div>
                         <div className="border rounded-md w-3/4 text-base px-2 py-1 border-blue-500 hover:border-2">
                             <select id="subject" className="w-full outline-none" name="subject" 
-                            required 
+                            required
                             onChange={e => setSubject(e.target.value)}
                             defaultValue="General Inquiry">
                             value={subject}
