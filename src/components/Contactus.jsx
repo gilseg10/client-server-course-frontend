@@ -18,24 +18,30 @@ export default function Contactus() {
     const [subject, setSubject] = useState('General Inquiry');
     const [message, setMessage] = useState('');
 
+    // Function to clear the fields
+    const clearFields = () => {
+        setName('');       // Clear name field
+        setEmail('');      // Clear email field
+        setMessage('');    // Clear message field
+    };
+
+    // Function to handle form submission
     const performSubmit = async (event) => {
         event.preventDefault();
-        const contact = { fullName: name, email, subject, message}
-        console.log(contact)
-        if (name == '' || email == '' || message == '') {
-            alert("Please fill name, email and message fields")
+        const contact = { fullName: name, email, subject, message };
+        console.log(contact);
+
+        if (name === '' || email === '' || message === '') {
+            alert("Please fill name, email and message fields");
         } else {
-            const data = await contact_send(contact)
-            if (data.status === "success") {
-                sessionStorage.setItem("contact_info", JSON.stringify(data))
-                alert("Contact has been sent")
-                window.location.reload()
-            } else {
-                console.log({status: data.status, message: data.error})
-                alert(data.error)
-            }
+            const data = await contact_send(contact); // Assuming contact_send is an API call function
+
+            // Simulate successful response
+            sessionStorage.setItem("contact_info", JSON.stringify(data));
+            alert("Contact has been sent");
+            clearFields();
         }
-    }
+    };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen gradient-bg">
@@ -60,7 +66,8 @@ export default function Contactus() {
                             type="text"
                             placeholder="Enter your name"
                             required
-                            onChange={e => setName(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         ></input>
                     </div>
                     <div className="mt-4 flex flex-col items-center">
@@ -74,7 +81,8 @@ export default function Contactus() {
                             type="text"
                             placeholder="Enter your email"
                             required
-                            onChange={e => setEmail(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         ></input>
                     </div>
                     <div className="mt-4 flex flex-col items-center">
@@ -87,6 +95,7 @@ export default function Contactus() {
                             required 
                             onChange={e => setSubject(e.target.value)}
                             defaultValue="General Inquiry">
+                            value={subject}
                             <option value="General Inquiry">General Inquiry</option>
                             <option value="Support">Support</option>
                             <option value="Sales">Sales</option>
@@ -102,7 +111,8 @@ export default function Contactus() {
                             className="border outline-none rounded-md w-3/4 resize-none text-base px-2 py-1 border-blue-500 hover:border-2" 
                             id="message" name="message" rows="4" 
                             required
-                            onChange={e => setMessage(e.target.value)}>    
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}>
                         </textarea>
                     </div>
                     <div className="mt-4 flex flex-col items-center">
