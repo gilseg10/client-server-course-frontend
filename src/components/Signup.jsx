@@ -16,6 +16,7 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [isShowPassword, setIsShowPassword] = useState(true);
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const navigate = useNavigate();
 
@@ -28,18 +29,24 @@ export default function Signup() {
     const perform_signup = async () => {
         if (username == '' || email == '' || password == '') {
             alert("Please fill email and password fields")
-        } else {
-            const data = await signup_send({username, password, email})
-            if (data.status === "success") {
-                sessionStorage.setItem("token", data.token)
-                sessionStorage.setItem("username", data.username)
-                sessionStorage.setItem("email", data.email)
-                navigate('/mainPage')
-            } else {
-                console.log({status: data.status, message: data.error})
-                alert(data.error)
-            }
+            return
         }
+        if (!passwordRegex.test(password)) {
+            alert("Password must be at least 8 characters long\n contain at least one uppercase letter\n one lowercase letter\n one number\n and one special character");
+            return;
+        }
+
+        const data = await signup_send({username, password, email})
+        if (data.status === "success") {
+            sessionStorage.setItem("token", data.token)
+            sessionStorage.setItem("username", data.username)
+            sessionStorage.setItem("email", data.email)
+            navigate('/mainPage')
+        } else {
+            console.log({status: data.status, message: data.error})
+            alert(data.error)
+        }
+
     }
 
     return (
